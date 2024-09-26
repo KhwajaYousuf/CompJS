@@ -1,0 +1,7 @@
+# ninja log v5
+5	986	7489812023482805	CMakeFiles/CompJSv2.dir/CompJSv2.cpp.obj	ce77d4a5f58f9c86
+53	179	7489813179598183	CMakeFiles/CompJSv2.dir/Reader.c.obj	286af75bd2b9fe7e
+214	449	7489813181739856	CompJSv2.exe	edd26e25b02e90c6
+19	52	0	clean	8c45b54705a541e8
+27	174	7489813179547459	CMakeFiles/CompJSv2.dir/Compilers.c.obj	7bd5fe1d0488448e
+90	214	7489813179958273	CMakeFiles/CompJSv2.dir/MainReader.c.obj	1cf5e2cc0c10bba2

@@ -1,0 +1,16 @@
+{
+  "version": "0.2.1",
+  "defaults": {},
+  "configurations": [
+    {
+      "type": "default",
+      "project": "CMakeLists.txt",
+      "projectTarget": "CompJSv2.exe",
+      "name": "CompJSv2.exe",
+      "args": [
+        "1",
+        "README.txt"
+      ]
+    }
+  ]
+}
