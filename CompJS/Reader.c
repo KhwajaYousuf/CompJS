@@ -9,23 +9,23 @@
 # ECHO "=---------------------------------------="
 # ECHO "|  COMPILERS - ALGONQUIN COLLEGE (F24)  |"
 # ECHO "=---------------------------------------="
-# ECHO "    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@    ”
-# ECHO "    @@                             @@    ”
-# ECHO "    @@           %&@@@@@@@@@@@     @@    ”
-# ECHO "    @@       @%% (@@@@@@@@@  @     @@    ”
-# ECHO "    @@      @& @   @ @       @     @@    ”
-# ECHO "    @@     @ @ %  / /   @@@@@@     @@    ”
-# ECHO "    @@      & @ @  @@              @@    ”
-# ECHO "    @@       @/ @*@ @ @   @        @@    ”
-# ECHO "    @@           @@@@  @@ @ @      @@    ”
-# ECHO "    @@            /@@    @@@ @     @@    ”
-# ECHO "    @@     @      / /     @@ @     @@    ”
-# ECHO "    @@     @ @@   /@/   @@@ @      @@    ”
-# ECHO "    @@     @@@@@@@@@@@@@@@         @@    ”
-# ECHO "    @@                             @@    ”
-# ECHO "    @@         S O F I A           @@    ”
-# ECHO "    @@                             @@    ”
-# ECHO "    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@    ”
+# ECHO "    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@    ï¿½
+# ECHO "    @@                             @@    ï¿½
+# ECHO "    @@           %&@@@@@@@@@@@     @@    ï¿½
+# ECHO "    @@       @%% (@@@@@@@@@  @     @@    ï¿½
+# ECHO "    @@      @& @   @ @       @     @@    ï¿½
+# ECHO "    @@     @ @ %  / /   @@@@@@     @@    ï¿½
+# ECHO "    @@      & @ @  @@              @@    ï¿½
+# ECHO "    @@       @/ @*@ @ @   @        @@    ï¿½
+# ECHO "    @@           @@@@  @@ @ @      @@    ï¿½
+# ECHO "    @@            /@@    @@@ @     @@    ï¿½
+# ECHO "    @@     @      / /     @@ @     @@    ï¿½
+# ECHO "    @@     @ @@   /@/   @@@ @      @@    ï¿½
+# ECHO "    @@     @@@@@@@@@@@@@@@         @@    ï¿½
+# ECHO "    @@                             @@    ï¿½
+# ECHO "    @@         S O F I A           @@    ï¿½
+# ECHO "    @@                             @@    ï¿½
+# ECHO "    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@    ï¿½
 # ECHO "                                         "
 # ECHO "[READER SCRIPT .........................]"
 # ECHO "                                         "
@@ -35,7 +35,7 @@
 ***********************************************************
 * File name: Reader.c
 * Compiler: MS Visual Studio 2022
-* Course: CST 8152 – Compilers, Lab Section: [011, 012, 013]
+* Course: CST 8152 ï¿½ Compilers, Lab Section: [011, 012, 013]
 * Assignment: A12.
 * Date: May 01 2024
 * Professor: Paulo Sousa
@@ -176,11 +176,28 @@ BufferPointer readerAddChar(BufferPointer readerPointer, sofia_char ch) {
 *	- Adjust for your LANGUAGE.
 *************************************************************
 */
-sofia_boln readerClear(BufferPointer const readerPointer) {
-	/* TO_DO: Defensive programming */
-	/* TO_DO: Adjust the write, mark and read to zero */
-	/* TO_DO: Adjust flags */
-	return SOFIA_TRUE;
+cjs_boln readerClear(BufferPointer const readerPointer) {
+	// Defensive programming: Check for NULL pointer
+	if (readerPointer == NULL)
+		return CJS_FALSE;
+
+	// Resetting positions to zero
+	readerPointer->positions.wrte = 0;
+	readerPointer->positions.read = 0;
+	readerPointer->positions.mark = 0;
+
+	// Resetting flags to default values
+	readerPointer->flags.isEmpty = 1;   // Buffer is now empty
+	readerPointer->flags.isFull = 0;    // Buffer is not full
+	readerPointer->flags.isRead = 0;    // Nothing has been read
+	readerPointer->flags.isMoved = 0;   // Memory has not been changed
+
+	// Optionally clear the histogram and error count if needed
+	memset(readerPointer->histogram, 0, sizeof(readerPointer->histogram));
+	readerPointer->numReaderErrors = 0;
+	readerPointer->checksum = 0; // Reset checksum if applicable
+
+	return CJS_TRUE; // ReturnÂ success
 }
 
 /*
