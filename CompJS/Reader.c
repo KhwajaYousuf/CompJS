@@ -1,46 +1,46 @@
 /*
-************************************************************
+********************
 * COMPILERS COURSE - Algonquin College
 * Code version: Fall, 2024
 * Author: TO_DO
 * Professors: Paulo Sousa
-************************************************************
+********************
 #
 # ECHO "=---------------------------------------="
 # ECHO "|  COMPILERS - ALGONQUIN COLLEGE (F24)  |"
 # ECHO "=---------------------------------------="
-# ECHO "    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@    ”
-# ECHO "    @@                             @@    ”
-# ECHO "    @@           %&@@@@@@@@@@@     @@    ”
-# ECHO "    @@       @%% (@@@@@@@@@  @     @@    ”
-# ECHO "    @@      @& @   @ @       @     @@    ”
-# ECHO "    @@     @ @ %  / /   @@@@@@     @@    ”
-# ECHO "    @@      & @ @  @@              @@    ”
-# ECHO "    @@       @/ @*@ @ @   @        @@    ”
-# ECHO "    @@           @@@@  @@ @ @      @@    ”
-# ECHO "    @@            /@@    @@@ @     @@    ”
-# ECHO "    @@     @      / /     @@ @     @@    ”
-# ECHO "    @@     @ @@   /@/   @@@ @      @@    ”
-# ECHO "    @@     @@@@@@@@@@@@@@@         @@    ”
-# ECHO "    @@                             @@    ”
-# ECHO "    @@         S O F I A           @@    ”
-# ECHO "    @@                             @@    ”
-# ECHO "    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@    ”
+# ECHO "    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@    â€
+# ECHO "    @@                             @@    â€
+# ECHO "    @@           %&@@@@@@@@@@@     @@    â€
+# ECHO "    @@       @%% (@@@@@@@@@  @     @@    â€
+# ECHO "    @@      @& @   @ @       @     @@    â€
+# ECHO "    @@     @ @ %  / /   @@@@@@     @@    â€
+# ECHO "    @@      & @ @  @@              @@    â€
+# ECHO "    @@       @/ @*@ @ @   @        @@    â€
+# ECHO "    @@           @@@@  @@ @ @      @@    â€
+# ECHO "    @@            /@@    @@@ @     @@    â€
+# ECHO "    @@     @      / /     @@ @     @@    â€
+# ECHO "    @@     @ @@   /@/   @@@ @      @@    â€
+# ECHO "    @@     @@@@@@@@@@@@@@@         @@    â€
+# ECHO "    @@                             @@    â€
+# ECHO "    @@         S O F I A           @@    â€
+# ECHO "    @@                             @@    â€
+# ECHO "    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@    â€
 # ECHO "                                         "
 # ECHO "[READER SCRIPT .........................]"
 # ECHO "                                         "
 */
 
 /*
-***********************************************************
+*********************
 * File name: Reader.c
 * Compiler: MS Visual Studio 2022
-* Course: CST 8152 – Compilers, Lab Section: [011, 012, 013]
+* Course: CST 8152 â€“ Compilers, Lab Section: [011, 012, 013]
 * Assignment: A12.
 * Date: May 01 2024
 * Professor: Paulo Sousa
 * Purpose: This file is the main code for Buffer/Reader (A12)
-************************************************************
+********************
 */
 
 /*
@@ -62,7 +62,7 @@
 #endif
 
  /*
- ***********************************************************
+ *********************
  * Function name: readerCreate
  * Purpose: Creates the buffer reader according to capacity, increment
 	 factor and operational mode ('f', 'a', 'm')
@@ -80,12 +80,12 @@
  *   - Use defensive programming
  *	- Check boundary conditions
  *	- Check flags.
- *************************************************************
+ *********************
  */
 
-BufferPointer readerCreate(sofia_intg size, sofia_intg increment, sofia_char mode) {
+BufferPointer readerCreate(cjs_intg size, cjs_intg increment, cjs_char mode) {
 	BufferPointer readerPointer;
-	sofia_intg count = 0;
+	cjs_intg count = 0;
 	/* TO_DO: Defensive programming */
 	if (!size)
 		size = READER_DEFAULT_SIZE;
@@ -95,8 +95,8 @@ BufferPointer readerCreate(sofia_intg size, sofia_intg increment, sofia_char mod
 		mode = MODE_FIXED;
 	readerPointer = (BufferPointer)calloc(1, sizeof(Buffer));
 	if (!readerPointer)
-		return SOFIA_INVALID;
-	readerPointer->content = (sofia_string)malloc(size);
+		return CJS_INVALID;
+	readerPointer->content = (cjs_string)malloc(size);
 	/* TO_DO: Defensive programming */
 	/* TO_DO: Initialize the histogram */
 	/* TO_DO: Initialize errors */
@@ -110,7 +110,7 @@ BufferPointer readerCreate(sofia_intg size, sofia_intg increment, sofia_char mod
 
 
 /*
-***********************************************************
+*********************
 * Function name: readerAddChar
 * Purpose: Adds a char to buffer reader
 * Parameters:
@@ -122,17 +122,17 @@ BufferPointer readerCreate(sofia_intg size, sofia_intg increment, sofia_char mod
 *   - Use defensive programming
 *	- Check boundary conditions
 *	- Adjust for your LANGUAGE.
-*************************************************************
+*********************
 */
 
-BufferPointer readerAddChar(BufferPointer readerPointer, sofia_char ch) {
-	sofia_string tempReader = SOFIA_INVALID;
-	sofia_intg newSize = 0;
-	sofia_char tempChar = ' ';
+BufferPointer readerAddChar(BufferPointer readerPointer, cjs_char ch) {
+	cjs_string tempReader = CJS_INVALID;
+	cjs_intg newSize = 0;
+	cjs_char tempChar = ' ';
 	/* TO_DO: Defensive programming */
 	/* TO_DO: Reset Realocation */
 	/* TO_DO: Test the inclusion of chars */
-	if (readerPointer->positions.wrte * (sofia_intg)sizeof(sofia_char) < readerPointer->size) {
+	if (readerPointer->positions.wrte * (cjs_intg)sizeof(cjs_char) < readerPointer->size) {
 		/* TO_DO: This buffer is NOT full */
 	}
 	else {
@@ -150,7 +150,7 @@ BufferPointer readerAddChar(BufferPointer readerPointer, sofia_char ch) {
 			/* TO_DO: Defensive programming */
 			break;
 		default:
-			return SOFIA_INVALID;
+			return CJS_INVALID;
 		}
 		/* TO_DO: Reallocate */
 		/* TO_DO: Defensive programming */
@@ -163,7 +163,7 @@ BufferPointer readerAddChar(BufferPointer readerPointer, sofia_char ch) {
 }
 
 /*
-***********************************************************
+*********************
 * Function name: readerClear
 * Purpose: Clears the buffer reader
 * Parameters:
@@ -174,17 +174,17 @@ BufferPointer readerAddChar(BufferPointer readerPointer, sofia_char ch) {
 *   - Use defensive programming
 *	- Check boundary conditions
 *	- Adjust for your LANGUAGE.
-*************************************************************
+*********************
 */
-sofia_boln readerClear(BufferPointer const readerPointer) {
+cjs_boln readerClear(BufferPointer const readerPointer) {
 	/* TO_DO: Defensive programming */
 	/* TO_DO: Adjust the write, mark and read to zero */
 	/* TO_DO: Adjust flags */
-	return SOFIA_TRUE;
+	return CJS_TRUE;
 }
 
 /*
-***********************************************************
+*********************
 * Function name: readerFree
 * Purpose: Releases the buffer address
 * Parameters:
@@ -195,16 +195,16 @@ sofia_boln readerClear(BufferPointer const readerPointer) {
 *   - Use defensive programming
 *	- Check boundary conditions
 *	- Adjust for your LANGUAGE.
-*************************************************************
+*********************
 */
-sofia_boln readerFree(BufferPointer const readerPointer) {
+cjs_boln readerFree(BufferPointer const readerPointer) {
 	/* TO_DO: Defensive programming */
 	/* TO_DO: Free pointers */
-	return SOFIA_TRUE;
+	return CJS_TRUE;
 }
 
 /*
-***********************************************************
+*********************
 * Function name: readerIsFull
 * Purpose: Checks if buffer reader is full
 * Parameters:
@@ -215,9 +215,9 @@ sofia_boln readerFree(BufferPointer const readerPointer) {
 *   - Use defensive programming
 *	- Check boundary conditions
 *	- Adjust for your LANGUAGE.
-*************************************************************
+*********************
 */
-sofia_boln readerIsFull(BufferPointer const readerPointer) {
+cjs_boln readerIsFull(BufferPointer const readerPointer) {
 	/* TO_DO: Defensive programming */
 	/* TO_DO: Check flag if buffer is FUL */
 	return 0;
@@ -225,7 +225,7 @@ sofia_boln readerIsFull(BufferPointer const readerPointer) {
 
 
 /*
-***********************************************************
+*********************
 * Function name: readerIsEmpty
 * Purpose: Checks if buffer reader is empty.
 * Parameters:
@@ -236,16 +236,16 @@ sofia_boln readerIsFull(BufferPointer const readerPointer) {
 *   - Use defensive programming
 *	- Check boundary conditions
 *	- Adjust for your LANGUAGE.
-*************************************************************
+*********************
 */
-sofia_boln readerIsEmpty(BufferPointer const readerPointer) {
+cjs_boln readerIsEmpty(BufferPointer const readerPointer) {
 	/* TO_DO: Defensive programming */
 	/* TO_DO: Check flag if buffer is EMP */
 	return 0;
 }
 
 /*
-***********************************************************
+*********************
 * Function name: readerSetMark
 * Purpose: Adjust the position of mark in the buffer
 * Parameters:
@@ -257,17 +257,17 @@ sofia_boln readerIsEmpty(BufferPointer const readerPointer) {
 *   - Use defensive programming
 *	- Check boundary conditions
 *	- Adjust for your LANGUAGE.
-*************************************************************
+*********************
 */
-sofia_boln readerSetMark(BufferPointer const readerPointer, sofia_intg mark) {
+cjs_boln readerSetMark(BufferPointer const readerPointer, cjs_intg mark) {
 	/* TO_DO: Defensive programming */
 	/* TO_DO: Adjust mark */
-	return SOFIA_TRUE;
+	return CJS_TRUE;
 }
 
 
 /*
-***********************************************************
+*********************
 * Function name: readerPrint
 * Purpose: Prints the string in the buffer.
 * Parameters:
@@ -278,11 +278,11 @@ sofia_boln readerSetMark(BufferPointer const readerPointer, sofia_intg mark) {
 *   - Use defensive programming
 *	- Check boundary conditions
 *	- Adjust for your LANGUAGE.
-*************************************************************
+*********************
 */
-sofia_intg readerPrint(BufferPointer const readerPointer) {
-	sofia_intg cont = 0;
-	sofia_char c;
+cjs_intg readerPrint(BufferPointer const readerPointer) {
+	cjs_intg cont = 0;
+	cjs_char c;
 	/* TO_DO: Defensive programming (including invalid chars) */
 	c = readerGetChar(readerPointer);
 	while (cont < readerPointer->positions.wrte) {
@@ -294,7 +294,7 @@ sofia_intg readerPrint(BufferPointer const readerPointer) {
 }
 
 /*
-***********************************************************
+*********************
 * Function name: readerLoad
 * Purpose: Loads the string in the buffer with the content of
 	an specific file.
@@ -307,14 +307,14 @@ sofia_intg readerPrint(BufferPointer const readerPointer) {
 *   - Use defensive programming
 *	- Check boundary conditions
 *	- Adjust for your LANGUAGE.
-*************************************************************
+*********************
 */
-sofia_intg readerLoad(BufferPointer readerPointer, FILE* const fileDescriptor) {
-	sofia_intg size = 0;
-	sofia_char c;
+cjs_intg readerLoad(BufferPointer readerPointer, FILE* const fileDescriptor) {
+	cjs_intg size = 0;
+	cjs_char c;
 	/* TO_DO: Defensive programming */
 	while (!feof(fileDescriptor)) {
-		c = (sofia_char)fgetc(fileDescriptor);
+		c = (cjs_char)fgetc(fileDescriptor);
 		readerPointer = readerAddChar(readerPointer, c);
 		size++;
 	}
@@ -323,7 +323,7 @@ sofia_intg readerLoad(BufferPointer readerPointer, FILE* const fileDescriptor) {
 }
 
 /*
-***********************************************************
+*********************
 * Function name: readerRecover
 * Purpose: Rewinds the buffer.
 * Parameters:
@@ -334,18 +334,18 @@ sofia_intg readerLoad(BufferPointer readerPointer, FILE* const fileDescriptor) {
 *   - Use defensive programming
 *	- Check boundary conditions
 *	- Adjust for your LANGUAGE.
-*************************************************************
+*********************
 */
-sofia_boln readerRecover(BufferPointer const readerPointer) {
+cjs_boln readerRecover(BufferPointer const readerPointer) {
 	/* TO_DO: Defensive programming */
 	/* TO_DO: Recover positions: read and mark must be zero */
 	/* TO_DO: Update flags */
-	return SOFIA_TRUE;
+	return CJS_TRUE;
 }
 
 
 /*
-***********************************************************
+*********************
 * Function name: readerRetract
 * Purpose: Retracts the buffer to put back the char in buffer.
 * Parameters:
@@ -356,17 +356,17 @@ sofia_boln readerRecover(BufferPointer const readerPointer) {
 *   - Use defensive programming
 *	- Check boundary conditions
 *	- Adjust for your LANGUAGE.
-*************************************************************
+*********************
 */
-sofia_boln readerRetract(BufferPointer const readerPointer) {
+cjs_boln readerRetract(BufferPointer const readerPointer) {
 	/* TO_DO: Defensive programming */
 	/* TO_DO: Retract (return 1 pos read) */
-	return SOFIA_TRUE;
+	return CJS_TRUE;
 }
 
 
 /*
-***********************************************************
+*********************
 * Function name: readerRestore
 * Purpose: Resets the buffer.
 * Parameters:
@@ -377,18 +377,18 @@ sofia_boln readerRetract(BufferPointer const readerPointer) {
 *   - Use defensive programming
 *	- Check boundary conditions
 *	- Adjust for your LANGUAGE.
-*************************************************************
+*********************
 */
-sofia_boln readerRestore(BufferPointer const readerPointer) {
+cjs_boln readerRestore(BufferPointer const readerPointer) {
 	/* TO_DO: Defensive programming */
 	/* TO_DO: Restore positions (read to mark) */
-	return SOFIA_TRUE;
+	return CJS_TRUE;
 }
 
 
 
 /*
-***********************************************************
+*********************
 * Function name: readerGetChar
 * Purpose: Returns the char in the getC position.
 * Parameters:
@@ -399,9 +399,9 @@ sofia_boln readerRestore(BufferPointer const readerPointer) {
 *   - Use defensive programming
 *	- Check boundary conditions
 *	- Adjust for your LANGUAGE.
-*************************************************************
+*********************
 */
-sofia_char readerGetChar(BufferPointer const readerPointer) {
+cjs_char readerGetChar(BufferPointer const readerPointer) {
 	/* TO_DO: Defensive programming */
 	/* TO_DO: Check condition to read/wrte */
 	return readerPointer->content[readerPointer->positions.read++];
@@ -409,7 +409,7 @@ sofia_char readerGetChar(BufferPointer const readerPointer) {
 
 
 /*
-***********************************************************
+*********************
 * Function name: readerGetContent
 * Purpose: Returns the pointer to String.
 * Parameters:
@@ -421,9 +421,9 @@ sofia_char readerGetChar(BufferPointer const readerPointer) {
 *   - Use defensive programming
 *	- Check boundary conditions
 *	- Adjust for your LANGUAGE.
-*************************************************************
+*********************
 */
-sofia_string readerGetContent(BufferPointer const readerPointer, sofia_intg pos) {
+cjs_string readerGetContent(BufferPointer const readerPointer, cjs_intg pos) {
 	/* TO_DO: Defensive programming */
 	return readerPointer->content + pos;
 }
@@ -431,7 +431,7 @@ sofia_string readerGetContent(BufferPointer const readerPointer, sofia_intg pos)
 
 
 /*
-***********************************************************
+*********************
 * Function name: readerGetPosRead
 * Purpose: Returns the value of getCPosition.
 * Parameters:
@@ -442,9 +442,9 @@ sofia_string readerGetContent(BufferPointer const readerPointer, sofia_intg pos)
 *   - Use defensive programming
 *	- Check boundary conditions
 *	- Adjust for your LANGUAGE.
-*************************************************************
+*********************
 */
-sofia_intg readerGetPosRead(BufferPointer const readerPointer) {
+cjs_intg readerGetPosRead(BufferPointer const readerPointer) {
 	/* TO_DO: Defensive programming */
 	/* TO_DO: Return read */
 	return 0;
@@ -452,7 +452,7 @@ sofia_intg readerGetPosRead(BufferPointer const readerPointer) {
 
 
 /*
-***********************************************************
+*********************
 * Function name: readerGetPosWrte
 * Purpose: Returns the position of char to be added
 * Parameters:
@@ -463,9 +463,9 @@ sofia_intg readerGetPosRead(BufferPointer const readerPointer) {
 *   - Use defensive programming
 *	- Check boundary conditions
 *	- Adjust for your LANGUAGE.
-*************************************************************
+*********************
 */
-sofia_intg readerGetPosWrte(BufferPointer const readerPointer) {
+cjs_intg readerGetPosWrte(BufferPointer const readerPointer) {
 	/* TO_DO: Defensive programming */
 	/* TO_DO: Return wrte */
 	return 0;
@@ -473,7 +473,7 @@ sofia_intg readerGetPosWrte(BufferPointer const readerPointer) {
 
 
 /*
-***********************************************************
+*********************
 * Function name: readerGetPosMark
 * Purpose: Returns the position of mark in the buffer
 * Parameters:
@@ -484,9 +484,9 @@ sofia_intg readerGetPosWrte(BufferPointer const readerPointer) {
 *   - Use defensive programming
 *	- Check boundary conditions
 *	- Adjust for your LANGUAGE.
-*************************************************************
+*********************
 */
-sofia_intg readerGetPosMark(BufferPointer const readerPointer) {
+cjs_intg readerGetPosMark(BufferPointer const readerPointer) {
 	/* TO_DO: Defensive programming */
 	/* TO_DO: Return mark */
 	return 0;
@@ -494,7 +494,7 @@ sofia_intg readerGetPosMark(BufferPointer const readerPointer) {
 
 
 /*
-***********************************************************
+*********************
 * Function name: readerGetSize
 * Purpose: Returns the current buffer capacity
 * Parameters:
@@ -505,16 +505,16 @@ sofia_intg readerGetPosMark(BufferPointer const readerPointer) {
 *   - Use defensive programming
 *	- Check boundary conditions
 *	- Adjust for your LANGUAGE.
-*************************************************************
+*********************
 */
-sofia_intg readerGetSize(BufferPointer const readerPointer) {
+cjs_intg readerGetSize(BufferPointer const readerPointer) {
 	/* TO_DO: Defensive programming */
 	/* TO_DO: Return size */
 	return 0;
 }
 
 /*
-***********************************************************
+*********************
 * Function name: readerGetInc
 * Purpose: Returns the buffer increment.
 * Parameters:
@@ -525,16 +525,16 @@ sofia_intg readerGetSize(BufferPointer const readerPointer) {
 *   - Use defensive programming
 *	- Check boundary conditions
 *	- Adjust for your LANGUAGE.
-*************************************************************
+*********************
 */
-sofia_intg readerGetInc(BufferPointer const readerPointer) {
+cjs_intg readerGetInc(BufferPointer const readerPointer) {
 	/* TO_DO: Defensive programming */
 	/* TO_DO: Return increment */
 	return 0;
 }
 
 /*
-***********************************************************
+*********************
 * Function name: readerGetMode
 * Purpose: Returns the operational mode
 * Parameters:
@@ -545,16 +545,16 @@ sofia_intg readerGetInc(BufferPointer const readerPointer) {
 *   - Use defensive programming
 *	- Check boundary conditions
 *	- Adjust for your LANGUAGE.
-*************************************************************
+*********************
 */
-sofia_char readerGetMode(BufferPointer const readerPointer) {
+cjs_char readerGetMode(BufferPointer const readerPointer) {
 	/* TO_DO: Defensive programming */
 	/* TO_DO: Return mode */
 	return '\0';
 }
 
 /*
-***********************************************************
+*********************
 * Function name: readerShowStat
 * Purpose: Shows the char statistic.
 * Parameters:
@@ -563,15 +563,15 @@ sofia_char readerGetMode(BufferPointer const readerPointer) {
 * TO_DO:
 *   - Use defensive programming
 *	- Adjust for your LANGUAGE.
-*************************************************************
+*********************
 */
-sofia_void readerPrintStat(BufferPointer const readerPointer) {
+cjs_void readerPrintStat(BufferPointer const readerPointer) {
 	/* TO_DO: Defensive programming */
 	/* TO_DO: Updates the histogram */
 }
 
 /*
-***********************************************************
+*********************
 * Function name: readerNumErrors
 * Purpose: Returns the number of errors found.
 * Parameters:
@@ -581,16 +581,16 @@ sofia_void readerPrintStat(BufferPointer const readerPointer) {
 * TO_DO:
 *   - Use defensive programming
 *	- Adjust for your LANGUAGE.
-*************************************************************
+*********************
 */
-sofia_intg readerGetNumErrors(BufferPointer const readerPointer) {
+cjs_intg readerGetNumErrors(BufferPointer const readerPointer) {
 	/* TO_DO: Defensive programming */
 	/* TO_DO: Returns the number of errors */
 	return 0;
 }
 
 /*
-***********************************************************
+*********************
 * Function name: readerCalcChecksum
 * Purpose: Calculates the checksum of the reader (8 bits).
 * Parameters:
@@ -601,16 +601,16 @@ sofia_intg readerGetNumErrors(BufferPointer const readerPointer) {
 *   - Use defensive programming
 *	- Check boundary conditions
 *	- Adjust for your LANGUAGE.
-*************************************************************
+*********************
 */
 
-sofia_void readerCalcChecksum(BufferPointer readerPointer) {
+cjs_void readerCalcChecksum(BufferPointer readerPointer) {
 	/* TO_DO: Defensive programming */
 	/* TO_DO: Calculate checksum */
 }
 
 /*
-***********************************************************
+*********************
 * Function name: readerPrintFlags
 * Purpose: Sets the checksum of the reader (4 bits).
 * Parameters:
@@ -621,11 +621,11 @@ sofia_void readerCalcChecksum(BufferPointer readerPointer) {
 *   - Use defensive programming
 *	- Check boundary conditions
 *	- Adjust for your LANGUAGE.
-*************************************************************
+*********************
 */
 
-sofia_boln readerPrintFlags(BufferPointer readerPointer) {
+cjs_boln readerPrintFlags(BufferPointer readerPointer) {
 	/* TO_DO: Defensive programming */
 	/* TO_DO: Shows flags */
-	return SOFIA_TRUE;
+	return CJS_TRUE;
 }
