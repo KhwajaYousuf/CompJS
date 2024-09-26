@@ -2,30 +2,30 @@
 ************************************************************
 * COMPILERS COURSE - Algonquin College
 * Code version: Fall, 2024
-* Author: TO_DO
+* Author: Mathew Ginson Kuzhivelil / Khwaja Yousuf Mohiyuddeen 
 * Professors: Paulo Sousa
 ************************************************************
 #
 # ECHO "=---------------------------------------="
 # ECHO "|  COMPILERS - ALGONQUIN COLLEGE (F24)  |"
 # ECHO "=---------------------------------------="
-# ECHO "    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@    î
-# ECHO "    @@                             @@    î
-# ECHO "    @@           %&@@@@@@@@@@@     @@    î
-# ECHO "    @@       @%% (@@@@@@@@@  @     @@    î
-# ECHO "    @@      @& @   @ @       @     @@    î
-# ECHO "    @@     @ @ %  / /   @@@@@@     @@    î
-# ECHO "    @@      & @ @  @@              @@    î
-# ECHO "    @@       @/ @*@ @ @   @        @@    î
-# ECHO "    @@           @@@@  @@ @ @      @@    î
-# ECHO "    @@            /@@    @@@ @     @@    î
-# ECHO "    @@     @      / /     @@ @     @@    î
-# ECHO "    @@     @ @@   /@/   @@@ @      @@    î
-# ECHO "    @@     @@@@@@@@@@@@@@@         @@    î
-# ECHO "    @@                             @@    î
-# ECHO "    @@         S O F I A           @@    î
-# ECHO "    @@                             @@    î
-# ECHO "    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@    î
+# ECHO "    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@    ‚Äù
+# ECHO "    @@                             @@    ‚Äù
+# ECHO "    @@           %&@@@@@@@@@@@     @@    ‚Äù
+# ECHO "    @@       @%% (@@@@@@@@@  @     @@    ‚Äù
+# ECHO "    @@      @& @   @ @       @     @@    ‚Äù
+# ECHO "    @@     @ @ %  / /   @@@@@@     @@    ‚Äù
+# ECHO "    @@      & @ @  @@              @@    ‚Äù
+# ECHO "    @@       @/ @*@ @ @   @        @@    ‚Äù
+# ECHO "    @@           @@@@  @@ @ @      @@    ‚Äù
+# ECHO "    @@            /@@    @@@ @     @@    ‚Äù
+# ECHO "    @@     @      / /     @@ @     @@    ‚Äù
+# ECHO "    @@     @ @@   /@/   @@@ @      @@    ‚Äù
+# ECHO "    @@     @@@@@@@@@@@@@@@         @@    ‚Äù
+# ECHO "    @@                             @@    ‚Äù
+# ECHO "    @@         S O F I A           @@    ‚Äù
+# ECHO "    @@                             @@    ‚Äù
+# ECHO "    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@    ‚Äù
 # ECHO "                                         "
 # ECHO "[READER SCRIPT .........................]"
 # ECHO "                                         "
@@ -35,7 +35,7 @@
 ************************************************************
 * File name: Compilers.h
 * Compiler: MS Visual Studio 2022
-* Course: CST 8152 ñ Compilers, Lab Section: [011, 012]
+* Course: CST 8152 ‚Äì Compilers, Lab Section: [011, 012]
 * Assignment: A12, A22, A32.
 * Date: Sep 01 2024
 * Professor: Paulo Sousa
@@ -61,14 +61,14 @@
 /* TO_DO: Adjust your language (cannot be "Sofia") */
 
 /* TO_DO: Language name */
-#define STR_LANGNAME	"Sofia"
+#define STR_LANGNAME	"CompJS"
 
 /* TO_DO: Logical constants - adapt for your language */
-#define SOFIA_TRUE		1
-#define SOFIA_FALSE		0
-#define SOFIA_ERROR		(-1)	/* General error message */
+#define CJS_TRUE		1
+#define CJS_FALSE		0
+#define CJS_ERROR		(-1)	/* General error message */
 
-#define SOFIA_INVALID	NULL
+#define CJS_INVALID	NULL
 
 /*
 ------------------------------------------------------------
@@ -80,17 +80,17 @@ NOTE: Some types may not be directly used by your language,
 
 
 /* TO_DO: Define your typedefs */
-typedef char			sofia_char;
-typedef char*			sofia_string;
-typedef int				sofia_intg;
-typedef float			sofia_real;
-typedef void			sofia_void;
+typedef char			cjs_char;
+typedef char*			cjs_string;
+typedef int				cjs_intg;
+typedef float			cjs_real;
+typedef void			cjs_void;
 
-typedef char			sofia_boln;
-typedef unsigned char	sofia_byte;
+typedef char			cjs_boln;
+typedef unsigned char	cjs_byte;
 
-typedef long			sofia_long;
-typedef double			sofia_doub;
+typedef long			cjs_long;
+typedef double			cjs_doub;
 
 /*
 ------------------------------------------------------------
@@ -112,13 +112,13 @@ Main functions signatures
 (Code will be updated during next assignments)
 ------------------------------------------------------------
 */
-sofia_intg mainReader(sofia_intg argc, sofia_string* argv);
+cjs_intg mainReader(cjs_intg argc, cjs_string* argv);
 /* TO_DO: Remove comment in next assignments */
 /*
 sofia_intg mainScanner(sofia_intg argc, sofia_string* argv);
 sofia_intg mainParser(sofia_intg argc, sofia_string* argv);
 */
 
-sofia_void printLogo();
+cjs_void printLogo();
 
 #endif
