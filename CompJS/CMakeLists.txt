@@ -14,7 +14,7 @@ project ("CompJSv2")
 # Add source to this project's executable.
 add_executable (CompJSv2 	
     "Compilers.h"	"Compilers.c"
-	"Reader.h"		"Reader.c"		"MainReader.c")
+	  "Reader.h"		"Reader.c"		"MainReader.c")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET CompJSv2 PROPERTY CXX_STANDARD 20)
