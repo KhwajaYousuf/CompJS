@@ -455,11 +455,17 @@ cjs_intg readerLoad(BufferPointer readerPointer, FILE* const fileDescriptor) {
 *	- Adjust for your LANGUAGE.
 *************************************************************
 */
-sofia_boln readerRecover(BufferPointer const readerPointer) {
-	/* TO_DO: Defensive programming */
-	/* TO_DO: Recover positions: read and mark must be zero */
-	/* TO_DO: Update flags */
-	return SOFIA_TRUE;
+cjs_boln readerRecover(BufferPointer const readerPointer) {
+	// Defensive programming: Check if readerPointer is NULL
+	if (readerPointer == CJS_INVALID) {
+		return CJS_FALSE; // Return FALSE if the pointer is null
+	}
+
+	// Reset read and mark offsets to zero
+	readerPointer->positions.read = 0;
+	readerPointer->positions.mark = 0;
+
+	return CJS_TRUE; // Return TRUE if operation is successful
 }
 
 
