@@ -227,7 +227,7 @@ BufferPointer readerAddChar(BufferPointer readerPointer, cjs_char ch) {
 */
 cjs_boln readerClear(BufferPointer const readerPointer) {
 	// Defensive programming: Check for NULL pointer
-	if (readerPointer == NULL)
+	if (readerPointer == CJS_INVALID)
 		return CJS_FALSE;
 
 	// Resetting positions to zero
@@ -241,14 +241,12 @@ cjs_boln readerClear(BufferPointer const readerPointer) {
 	readerPointer->flags.isRead = 0;    // Nothing has been read
 	readerPointer->flags.isMoved = 0;   // Memory has not been changed
 
-	// Optionally clear the histogram and error count if needed
 	memset(readerPointer->histogram, 0, sizeof(readerPointer->histogram));
 	readerPointer->numReaderErrors = 0;
-	readerPointer->checksum = 0; // Reset checksum if applicable
+	readerPointer->checksum = 0; 
 
-	return CJS_TRUE; // Return success
+	return CJS_TRUE; // Return�success
 }
-
 /*
 ***********************************************************
 * Function name: readerFree
