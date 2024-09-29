@@ -83,29 +83,53 @@
  *************************************************************
  */
 
-BufferPointer readerCreate(sofia_intg size, sofia_intg increment, sofia_char mode) {
+BufferPointer readerCreate(cjs_intg size, cjs_intg increment, cjs_char mode) {
 	BufferPointer readerPointer;
-	sofia_intg count = 0;
-	/* TO_DO: Defensive programming */
-	if (!size)
-		size = READER_DEFAULT_SIZE;
-	if (!increment)
-		increment = READER_DEFAULT_INCREMENT;
-	if (!mode)
-		mode = MODE_FIXED;
+
+
+	// Defensive programming: Validate parameters
+	if (size <= 0) size = READER_DEFAULT_SIZE;  // Use default if size is negative
+	if (increment <= 0) increment = READER_DEFAULT_INCREMENT; // Use default if increment is negative
+	if (mode != MODE_FIXED && mode != MODE_ADDIT && mode != MODE_MULTI) {
+		return CJS_INVALID; // Invalid mode, return NULL
+	}
+
+	// Allocate memory for the reader structure
 	readerPointer = (BufferPointer)calloc(1, sizeof(Buffer));
-	if (!readerPointer)
-		return SOFIA_INVALID;
-	readerPointer->content = (sofia_string)malloc(size);
-	/* TO_DO: Defensive programming */
-	/* TO_DO: Initialize the histogram */
-	/* TO_DO: Initialize errors */
-	readerPointer->mode = mode;
-	readerPointer->size = size;
-	readerPointer->increment = increment;
-	/* TO_DO: Initialize flags */
-	/* TO_DO: Default checksum */
-	return readerPointer;
+	if (!readerPointer) {
+		return CJS_INVALID; // Memory allocation failure
+	}
+
+
+	// Allocate memory for the content buffer
+	readerPointer->content = (cjs_string)malloc(size);
+	if (!readerPointer->content) {
+		free(readerPointer); // Free previously allocated memory
+		return CJS_INVALID; // Memory allocation failure
+	}
+
+	// Initialize the histogram
+	for (int i = 0; i < NCHAR; i++) {
+		readerPointer->histogram[i] = 0; // Set each element of the histogram to 0
+	}
+
+	// Initialize fields
+	readerPointer->size = size; // Set reader size to the given value
+	readerPointer->increment = increment; // Set increment for buffer growth
+	readerPointer->mode = mode; // Set reader mode for buffer behavior
+
+	// Initialize flags
+	readerPointer->flags.isEmpty = CJS_TRUE;  // Initially the reader is empty
+	readerPointer->flags.isFull = CJS_FALSE;  // Initially the reader is not full
+	readerPointer->flags.isRead = CJS_FALSE;  // No data has been read yet
+	readerPointer->flags.isMoved = CJS_FALSE; // No movement has occurred yet
+
+	readerPointer->content[0] = READER_TERMINATOR; // Initialize content with terminator
+	readerPointer->positions.wrte = 0; // Initialize write position
+	readerPointer->positions.mark = 0; // Initialize mark position
+	readerPointer->positions.read = 0; // Initialize read position
+
+	return readerPointer; // Return the newly created reader pointer
 }
 
 
