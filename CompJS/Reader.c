@@ -261,10 +261,16 @@ cjs_boln readerClear(BufferPointer const readerPointer) {
 *	- Adjust for your LANGUAGE.
 *************************************************************
 */
-sofia_boln readerFree(BufferPointer const readerPointer) {
-	/* TO_DO: Defensive programming */
-	/* TO_DO: Free pointers */
-	return SOFIA_TRUE;
+cjs_boln readerFree(BufferPointer const readerPointer) {
+	// Defensive programming: Check for NULL pointer
+	if (readerPointer == CJS_INVALID) {
+		return CJS_FALSE; // Return false if the pointer is NULL
+	}
+
+	// Free the readerPointer itself
+	free(readerPointer); // Free the main structure
+
+	return CJS_TRUE; // Return true to indicate successful�deallocation
 }
 
 /*
