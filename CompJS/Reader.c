@@ -378,15 +378,23 @@ cjs_boln readerSetMark(BufferPointer const readerPointer, cjs_intg mark) {
 *	- Adjust for your LANGUAGE.
 *************************************************************
 */
-sofia_intg readerPrint(BufferPointer const readerPointer) {
-	sofia_intg cont = 0;
-	sofia_char c;
-	/* TO_DO: Defensive programming (including invalid chars) */
-	c = readerGetChar(readerPointer);
-	while (cont < readerPointer->positions.wrte) {
+cjs_intg readerPrint(BufferPointer const readerPointer) {
+	cjs_intg cont = 0;
+	cjs_char c;
+
+	// Defensive programming: Check if readerPointer is NULL
+	if (readerPointer == CJS_INVALID) {
+		return 0; // Return 0 if the pointer is null
+	}
+	while (cont < readerPointer->positions.wrte) { 
+
 		cont++;
+		c = readerGetChar(readerPointer); 
 		printf("%c", c);
-		c = readerGetChar(readerPointer);
+
+		if (c < 0 || c >= NCHAR)c = 0; 
+		if (readerPointer->flags.isRead)break;
+
 	}
 	return cont;
 }
