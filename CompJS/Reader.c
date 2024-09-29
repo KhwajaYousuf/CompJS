@@ -317,10 +317,19 @@ cjs_boln readerIsFull(BufferPointer const readerPointer) {
 *	- Adjust for your LANGUAGE.
 *************************************************************
 */
-sofia_boln readerIsEmpty(BufferPointer const readerPointer) {
-	/* TO_DO: Defensive programming */
-	/* TO_DO: Check flag if buffer is EMP */
-	return 0;
+cjs_boln readerIsEmpty(BufferPointer const readerPointer) {
+	// Defensive programming: Check if readerPointer is NULL
+	if (readerPointer == CJS_INVALID) {
+		return CJS_FALSE; // Return false if the pointer is invalid
+	}
+
+	// Check the isEmpty flag
+	if (readerPointer->flags.isEmpty) {
+		return CJS_TRUE; // Return true if the buffer is empty
+	}
+
+	// Buffer is not empty
+	return CJS_FALSE;
 }
 
 /*
