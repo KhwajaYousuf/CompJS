@@ -415,18 +415,31 @@ cjs_intg readerPrint(BufferPointer const readerPointer) {
 *	- Adjust for your LANGUAGE.
 *************************************************************
 */
-sofia_intg readerLoad(BufferPointer readerPointer, FILE* const fileDescriptor) {
-	sofia_intg size = 0;
-	sofia_char c;
-	/* TO_DO: Defensive programming */
+cjs_intg readerLoad(BufferPointer readerPointer, FILE* const fileDescriptor) {
+	cjs_intg size = 0;
+	cjs_char c;
+
+	// Defensive programming: Check if readerPointer or fileDescriptor is NULL
+	if (readerPointer == CJS_INVALID) {
+		return 0; // Return 0 if the pointer is null
+	}
+
+	if (fileDescriptor == CJS_INVALID) {
+		return 0; // Return 0 if the file descriptor is invalid
+	}
+
+	c = (cjs_char)fgetc(fileDescriptor);  // Read the first character from the file
 	while (!feof(fileDescriptor)) {
-		c = (sofia_char)fgetc(fileDescriptor);
-		readerPointer = readerAddChar(readerPointer, c);
+		if (!readerAddChar(readerPointer, c)) {
+			ungetc(c, fileDescriptor);
+			return CHARSEOF; // Return EOF indicator
+		}
+		c = (char)fgetc(fileDescriptor); // Read the next character
+
 		size++;
 	}
-	/* TO_DO: Defensive programming */
-	return size;
-}
+	return size; // Return the total number of characters read
+}   
 
 /*
 ***********************************************************
