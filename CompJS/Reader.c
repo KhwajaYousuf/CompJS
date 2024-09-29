@@ -347,10 +347,20 @@ cjs_boln readerIsEmpty(BufferPointer const readerPointer) {
 *	- Adjust for your LANGUAGE.
 *************************************************************
 */
-sofia_boln readerSetMark(BufferPointer const readerPointer, sofia_intg mark) {
-	/* TO_DO: Defensive programming */
-	/* TO_DO: Adjust mark */
-	return SOFIA_TRUE;
+cjs_boln readerSetMark(BufferPointer const readerPointer, cjs_intg mark) {
+    // Defensive programming: Check for NULL pointer
+    if (readerPointer == CJS_INVALID) {
+        return CJS_FALSE; // Return false if readerPointer is NULL
+    }
+
+    // Check boundary conditions for the mark
+    if (mark < 0 || mark > readerPointer->positions.wrte) {
+        return CJS_FALSE; // Return false if mark is out of valid range
+    }
+
+    // Set the mark position
+    readerPointer->positions.mark = mark; 
+    return CJS_TRUE; // Return true indicating�success
 }
 
 
