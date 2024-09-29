@@ -149,42 +149,67 @@ BufferPointer readerCreate(cjs_intg size, cjs_intg increment, cjs_char mode) {
 *************************************************************
 */
 
-BufferPointer readerAddChar(BufferPointer readerPointer, sofia_char ch) {
-	sofia_string tempReader = SOFIA_INVALID;
-	sofia_intg newSize = 0;
-	sofia_char tempChar = ' ';
-	/* TO_DO: Defensive programming */
-	/* TO_DO: Reset Realocation */
-	/* TO_DO: Test the inclusion of chars */
-	if (readerPointer->positions.wrte * (sofia_intg)sizeof(sofia_char) < readerPointer->size) {
-		/* TO_DO: This buffer is NOT full */
-	}
-	else {
-		/* TO_DO: Reset Full flag */
-		switch (readerPointer->mode) {
-		case MODE_FIXED:
-			/* TO_DO: Update the last position with Terminator */
-			break;
-		case MODE_ADDIT:
-			/* TO_DO: Update size for Additive mode */
-			/* TO_DO: Defensive programming */
-			break;
-		case MODE_MULTI:
-			/* TO_DO: Update size for Additive mode */
-			/* TO_DO: Defensive programming */
-			break;
-		default:
-			return SOFIA_INVALID;
+BufferPointer readerAddChar(BufferPointer readerPointer, cjs_char ch) {
+    cjs_string tempReader = CJS_INVALID;
+    cjs_intg newSize = 0;
+
+
+    //Defensive programming: Ensure valid pointer and character 
+    if (!readerPointer) return CJS_INVALID;
+    if (ch < 0) return CJS_INVALID;
+
+    //Check if the buffer is full 
+    if (readerPointer->positions.wrte * (cjs_intg)sizeof(cjs_char) >= readerPointer->size) {
+        //Buffer is full, reallocate if necessary 
+        switch (readerPointer->mode) {
+            case MODE_FIXED:
+                //In fixed mode, no reallocation is allowed 
+                //readerPointer->flags.isFull = 1;
+                return CJS_INVALID;
+
+            case MODE_ADDIT:
+                //Additive mode: Increase size by increment 
+                newSize = readerPointer->size + readerPointer->increment;
+                break;
+
+            case MODE_MULTI:
+                //Multiplicative mode: Increase size by multiplying 
+                newSize = readerPointer->size * readerPointer->increment;
+                break;
+
+            default:
+                //Invalid mode 
+                return CJS_INVALID; 
+        }
+
+        //Check if the new size is valid and within the limit 
+        if (newSize <= 0 || newSize > READER_MAX_SIZE) return CJS_INVALID;
+
+        //Reallocate memory defensively 
+        tempReader = (cjs_string)realloc(readerPointer->content, newSize * sizeof(cjs_char));
+        if (!tempReader) return CJS_INVALID;  //Reallocation failed 
+
+        //Check if memory address has changed 
+		if (tempReader != readerPointer->content) {
+			readerPointer->flags.isMoved = CJS_TRUE; 
 		}
-		/* TO_DO: Reallocate */
-		/* TO_DO: Defensive programming */
-		return readerPointer;
+
+        //Update buffer with the new size and content 
+        readerPointer->content = tempReader;
+        readerPointer->size = newSize;
+        readerPointer->flags.isFull = 0;  //Reset the full flag
+    }
+
+
+    //Add the character to the buffer 
+    readerPointer->content[readerPointer->positions.wrte++] = ch;
+	if (ch >= 0 && ch < NCHAR) {
+		readerPointer->histogram[ch]++; 
 	}
-	/* TO_DO: Update the flags */
-	readerPointer->content[readerPointer->positions.wrte++] = ch;
-	/* TO_DO: Updates histogram */
-	return readerPointer;
+
+    return readerPointer;
 }
+
 
 /*
 ***********************************************************
