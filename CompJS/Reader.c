@@ -483,12 +483,15 @@ cjs_boln readerRecover(BufferPointer const readerPointer) {
 *	- Adjust for your LANGUAGE.
 *************************************************************
 */
-sofia_boln readerRetract(BufferPointer const readerPointer) {
-	/* TO_DO: Defensive programming */
-	/* TO_DO: Retract (return 1 pos read) */
-	return SOFIA_TRUE;
+cjs_boln readerRetract(BufferPointer const readerPointer) {
+	// Defensive programming: Check if readerPointer is NULL
+	if (readerPointer == CJS_INVALID) {
+		return CJS_FALSE; // Return FALSE if the pointer is null
+	}
+	if (readerPointer->positions.read--); { // Decrement read position
+		return CJS_TRUE;
+	}
 }
-
 
 /*
 ***********************************************************
