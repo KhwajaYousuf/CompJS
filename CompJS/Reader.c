@@ -287,10 +287,19 @@ cjs_boln readerFree(BufferPointer const readerPointer) {
 *	- Adjust for your LANGUAGE.
 *************************************************************
 */
-sofia_boln readerIsFull(BufferPointer const readerPointer) {
-	/* TO_DO: Defensive programming */
-	/* TO_DO: Check flag if buffer is FUL */
-	return 0;
+cjs_boln readerIsFull(BufferPointer const readerPointer) {
+	// Defensive programming: Check if readerPointer is NULL
+	if (readerPointer == CJS_INVALID) {
+		return CJS_FALSE; // Consider NULL as not full
+	}
+
+	// Check the isFull flag
+	if (readerPointer->flags.isFull) {
+		return CJS_TRUE; // Buffer is full
+	}
+
+	// Buffer is not full
+	return CJS_FALSE;
 }
 
 
