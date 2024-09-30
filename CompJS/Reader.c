@@ -720,10 +720,14 @@ cjs_intg readerGetInc(BufferPointer const readerPointer) {
 *	- Adjust for your LANGUAGE.
 *************************************************************
 */
-sofia_char readerGetMode(BufferPointer const readerPointer) {
-	/* TO_DO: Defensive programming */
-	/* TO_DO: Return mode */
-	return '\0';
+cjs_char readerGetMode(BufferPointer const readerPointer) {
+	// Defensive programming: Check if readerPointer is NULL
+	if (readerPointer == CJS_INVALID) {
+		return '\0'; // Return null character to indicate an error
+	}
+
+	// Return the operational mode
+	return readerPointer->mode; 
 }
 
 /*
