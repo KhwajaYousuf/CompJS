@@ -672,10 +672,14 @@ cjs_intg readerGetPosMark(BufferPointer const readerPointer) {
 *	- Adjust for your LANGUAGE.
 *************************************************************
 */
-sofia_intg readerGetSize(BufferPointer const readerPointer) {
-	/* TO_DO: Defensive programming */
-	/* TO_DO: Return size */
-	return 0;
+cjs_intg readerGetSize(BufferPointer const readerPointer) {
+	// Defensive programming: Check if readerPointer is NULL
+	if (readerPointer == CJS_INVALID) {
+		return -1; // Return -1 to indicate an error
+	}
+
+	// Return the size of the buffer
+	return readerPointer->size;
 }
 
 /*
