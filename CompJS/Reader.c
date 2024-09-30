@@ -782,10 +782,13 @@ void readerPrintStat(BufferPointer const readerPointer) {
 *	- Adjust for your LANGUAGE.
 *************************************************************
 */
-sofia_intg readerGetNumErrors(BufferPointer const readerPointer) {
-	/* TO_DO: Defensive programming */
-	/* TO_DO: Returns the number of errors */
-	return 0;
+cjs_intg readerGetNumErrors(BufferPointer const readerPointer) {
+	// Defensive programming: Check if readerPointer is NULL
+	if (readerPointer == CJS_INVALID) {
+		return -1; // Return an error code if the pointer is NULL
+	}
+
+	return readerPointer->numReaderErrors; 	// Return the total number of errors found
 }
 
 /*
