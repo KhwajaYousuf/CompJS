@@ -806,9 +806,31 @@ cjs_intg readerGetNumErrors(BufferPointer const readerPointer) {
 *************************************************************
 */
 
-sofia_void readerCalcChecksum(BufferPointer readerPointer) {
-	/* TO_DO: Defensive programming */
-	/* TO_DO: Calculate checksum */
+cjs_void readerCalcChecksum(BufferPointer const readerPointer) {
+	// Defensive programming: Check if readerPointer is NULL
+	if (readerPointer == CJS_INVALID) {
+		return;
+	}
+
+	// Initialize checksum to 0
+	unsigned char checksum = 0;
+
+	// Get the write position 
+	cjs_intg writePosition = readerGetPosWrte(readerPointer);
+
+	// Defensive check: Ensure the write position is within valid bounds
+	if (writePosition < 0 || writePosition > readerPointer->size) {
+		return;
+	}
+
+	// Calculate checksum using the histogram data
+	for (int i = 0; i < NCHAR; i++) { // NCHAR is the size of the histogram
+		// Multiply the character value (i) by its frequency (readerPointer->histogram[i])
+		checksum += (unsigned char)i * readerPointer->histogram[i];
+	}
+
+	// Store the 8-bit checksum in the BufferReader structure
+	readerPointer->checksum = checksum & 0xFF; // Mask to ensure 8-bit value
 }
 
 /*
