@@ -696,10 +696,14 @@ cjs_intg readerGetSize(BufferPointer const readerPointer) {
 *	- Adjust for your LANGUAGE.
 *************************************************************
 */
-sofia_intg readerGetInc(BufferPointer const readerPointer) {
-	/* TO_DO: Defensive programming */
-	/* TO_DO: Return increment */
-	return 0;
+cjs_intg readerGetInc(BufferPointer const readerPointer) {
+	// Defensive programming: Check if readerPointer is NULL
+	if (readerPointer == CJS_INVALID) {
+		return -1; // Return -1 to indicate an error
+	}
+
+	// Return the buffer increment value
+	return readerPointer->increment; 
 }
 
 /*
