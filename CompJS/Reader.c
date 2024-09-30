@@ -530,10 +530,25 @@ cjs_boln readerRestore(BufferPointer const readerPointer) {
 *	- Adjust for your LANGUAGE.
 *************************************************************
 */
-sofia_char readerGetChar(BufferPointer const readerPointer) {
-	/* TO_DO: Defensive programming */
-	/* TO_DO: Check condition to read/wrte */
-	return readerPointer->content[readerPointer->positions.read++];
+cjs_char readerGetChar(BufferPointer const readerPointer) {
+    // Defensive programming: Check if the readerPointer is NULL
+    if (readerPointer == CJS_INVALID) {
+        return CHARSEOF; // Return EOF code as an indication of error
+    }
+
+    // Check if read position has reached or exceeded write position
+    if (readerPointer->positions.read >= readerPointer->positions.wrte) {
+        // Set the END flag to true
+        readerPointer->flags.isRead = CJS_TRUE; // Mark as read
+        readerPointer->flags.isEmpty = CJS_TRUE; // Mark as empty
+        return READER_TERMINATOR; // Return end of string character
+    } else {
+        // Reset the END flag to false
+        readerPointer->flags.isRead = CJS_FALSE;
+    }
+
+    // Return the character at the current read position and increment read position
+    return readerPointer->content[readerPointer->positions.read++];
 }
 
 
