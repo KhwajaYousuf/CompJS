@@ -742,9 +742,31 @@ cjs_char readerGetMode(BufferPointer const readerPointer) {
 *	- Adjust for your LANGUAGE.
 *************************************************************
 */
-sofia_void readerPrintStat(BufferPointer const readerPointer) {
-	/* TO_DO: Defensive programming */
-	/* TO_DO: Updates the histogram */
+void readerPrintStat(BufferPointer const readerPointer) {
+	// Defensive programming: Check if readerPointer is NULL
+	if (readerPointer == CJS_INVALID) {
+		return; // Nothing to print if the pointer is NULL
+	}
+
+	int printed = 0; // Counter to track how many items are printed on the line
+
+	// Print the character statistics from the histogram
+	for (int i = 0; i < NCHAR; i++) {
+		// Print only if the count is greater than zero
+		if (readerPointer->histogram[i] > 0) {
+			printf("B[%c]=%d", (char)i, readerPointer->histogram[i]);
+
+			printed++;
+			if (printed % 8 == 0) {
+				printf(",\n");  // Add a newline after every 8 items for readability
+			}
+			else {
+				printf(", ");  
+			}
+		}
+	}
+
+	printf("\n"); 
 }
 
 /*
