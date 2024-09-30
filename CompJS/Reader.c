@@ -567,9 +567,19 @@ cjs_char readerGetChar(BufferPointer const readerPointer) {
 *	- Adjust for your LANGUAGE.
 *************************************************************
 */
-sofia_string readerGetContent(BufferPointer const readerPointer, sofia_intg pos) {
-	/* TO_DO: Defensive programming */
-	return readerPointer->content + pos;
+cjs_string readerGetContent(BufferPointer const readerPointer, cjs_intg pos) {
+    // Defensive programming: Check if readerPointer is NULL
+    if (readerPointer == CJS_INVALID) {
+        return CJS_INVALID; // Return NULL to indicate an error
+    }
+
+    // Check if the position is valid
+    if (pos < 0 || pos >= readerPointer->positions.wrte) {
+        return CJS_INVALID; // Return NULL for invalid position
+    }
+
+    // Return the pointer to the content starting from the specified position
+    return readerPointer->content + pos;
 }
 
 
