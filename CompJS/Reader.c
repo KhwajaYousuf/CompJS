@@ -598,12 +598,15 @@ cjs_string readerGetContent(BufferPointer const readerPointer, cjs_intg pos) {
 *	- Adjust for your LANGUAGE.
 *************************************************************
 */
-sofia_intg readerGetPosRead(BufferPointer const readerPointer) {
-	/* TO_DO: Defensive programming */
-	/* TO_DO: Return read */
-	return 0;
-}
+cjs_intg readerGetPosRead(BufferPointer const readerPointer) {
+	// Defensive programming: Check if readerPointer is NULL
+	if (readerPointer == CJS_INVALID) {
+		return -1; // Return -1 to indicate an error
+	}
 
+	// Return the read position offset
+	return readerPointer->positions.read;
+}
 
 /*
 ***********************************************************
