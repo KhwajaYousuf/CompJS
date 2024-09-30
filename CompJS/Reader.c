@@ -647,10 +647,14 @@ cjs_intg readerGetPosWrte(BufferPointer const readerPointer) {
 *	- Adjust for your LANGUAGE.
 *************************************************************
 */
-sofia_intg readerGetPosMark(BufferPointer const readerPointer) {
-	/* TO_DO: Defensive programming */
-	/* TO_DO: Return mark */
-	return 0;
+cjs_intg readerGetPosMark(BufferPointer const readerPointer) {
+	// Defensive programming: Check if readerPointer is NULL
+	if (readerPointer == CJS_INVALID) {
+		return -1; // Return -1 to indicate an error
+	}
+
+	// Return the mark position
+	return readerPointer->positions.mark;
 }
 
 
