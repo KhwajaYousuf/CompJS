@@ -848,8 +848,51 @@ cjs_void readerCalcChecksum(BufferPointer const readerPointer) {
 *************************************************************
 */
 
-sofia_boln readerPrintFlags(BufferPointer readerPointer) {
-	/* TO_DO: Defensive programming */
-	/* TO_DO: Shows flags */
-	return SOFIA_TRUE;
+cjs_void readerPrintFlags(BufferPointer const readerPointer) {
+	// Defensive programming: Check if readerPointer is NULL
+	if (readerPointer == CJS_INVALID) {
+		return; // Exit if the pointer is invalid
+	}
+
+	// Check if the buffer is empty
+	if (readerPointer->positions.wrte == 0) {
+		readerPointer->flags.isEmpty = CJS_TRUE;  // Set isEmpty to True if no characters have been written
+	}
+	else {
+		readerPointer->flags.isEmpty = CJS_FALSE;  // Set isEmpty to False if there are written characters
+	}
+
+	// Check if the buffer is full
+	if (readerPointer->positions.wrte == readerPointer->size) {
+		readerPointer->flags.isFull = CJS_TRUE;  // Buffer is full when write position equals size
+	}
+	else {
+		readerPointer->flags.isFull = CJS_FALSE;  // Buffer is not full otherwise
+	}
+
+	// Check if the buffer has been read from
+	// isRead is True if read position is greater than 0 and different from the write position
+	if (readerPointer->positions.read > 0 &&
+		readerPointer->positions.read < readerPointer->positions.wrte) {
+		readerPointer->flags.isRead = CJS_TRUE;  // Set isRead to True if we have read something
+	}
+	else {
+		readerPointer->flags.isRead = CJS_FALSE;  // Set isRead to False if read position is at 0 or not less than write
+	}
+
+	// Check if the buffer was moved (this is commonly related to the read position changing)
+	if (readerPointer->positions.read != readerPointer->positions.mark) {
+		readerPointer->flags.isMoved = CJS_TRUE;  // Set isMoved to True if the read pointer has moved past the mark
+	}
+	else {
+		readerPointer->flags.isMoved = CJS_FALSE;  // Set isMoved to False if read and mark positions are equal
+	}
+
+	// Print the flag statuses
+	printf("isEmpty: %s\n", readerPointer->flags.isEmpty ? "True" : "False");
+	printf("isFull: %s\n", readerPointer->flags.isFull ? "True" : "False");
+	printf("isRead: %s\n", readerPointer->flags.isRead ? "True" : "False");
+	printf("isMoved: %s\n", readerPointer->flags.isMoved ? "True" : "False");
+
+	return CJS_TRUE;
 }
